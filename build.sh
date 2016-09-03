@@ -1,7 +1,7 @@
 cd server
-go build
+go install
 cd ..
 cd client
-go build
+go install
 cd ..
 echo "Finish."
