@@ -21,4 +21,25 @@ Install
   cd ETransV2
   cd client
   go install
+  
+Usage
+--------------
+
+**Server**
+
+``server <listening_port>``
+
+**Client**
+
+``client <server-ip:server-port> <filepath>``
+
+BenchMark
+--------------
+
+Transport a 700MB file in LAN.
+
+* Average Speed: 77Mbps
+* Top Speed: 102Mbps
+* Lowest Speed: 67Mbps
+* RAM Use: 2.4MB(Both Client & Server)
 
