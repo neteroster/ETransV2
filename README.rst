@@ -41,5 +41,5 @@ Transport a 700MB file in LAN.
 * Average Speed: **77Mbps**
 * Top Speed: **102Mbps**
 * Lowest Speed: **67Mbps**
-* RAM Use: **2.4MB**(Both Client & Server)
+* RAM Use: **2.4MB** (Both Client & Server)
 
