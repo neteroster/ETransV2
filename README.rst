@@ -1,6 +1,9 @@
 ETransV2
 ==============
 
+.. image:: https://goreportcard.com/badge/github.com/Class04OpenSourceORG/ETransV2
+   :target: https://goreportcard.com/report/github.com/Class04OpenSourceORG/ETransV2
+
 ETransV2 is a data transmit tools written in Go.
 
 .. image:: https://github.com/Class04OpenSourceORG/ETransV2/blob/master/t.png
