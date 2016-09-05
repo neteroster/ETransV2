@@ -49,4 +49,4 @@ Transport a 700MB file in LAN.
 See Also
 --------------
 
-.. _ETransV3: https://github.com/Class04OpenSourceORG
+`ETransV3 <https://github.com/Class04OpenSourceORG/ETransV3>`_
