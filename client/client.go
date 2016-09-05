@@ -5,11 +5,12 @@ import (
 	"log"
 	"net"
 	"os"
+	"strconv"
 )
 
 func checkError(err error) {
 	if err != nil {
-		log.Fatalln("[FATAL]", err) // will exit when Error happended
+		log.Fatalln("[FATAL]", err) // will exit when Error happened
 	}
 }
 
@@ -23,7 +24,13 @@ func sendFile(c net.Conn, filepth string) {
 	f, err := os.Open(filepth)
 	checkError(err)
 	defer f.Close()
-	buf := make([]byte, 1024)
+	fstat, err := f.Stat() // get stat
+	checkError(err)
+	filename := fstat.Name() //get name
+	filesize := fstat.Size() //get size
+	writeString := filename + ";;" + strconv.FormatInt(filesize, 10) + "//etransv2-head//"
+	c.Write([]byte(writeString))
+	buf := make([]byte, 10240)
 	bfRd := bufio.NewReader(f)
 	for {
 		n, err := bfRd.Read(buf)
