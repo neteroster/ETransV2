@@ -17,7 +17,7 @@ func checkError(err error) {
 
 func checkArgs() {
 	if len(os.Args) != 2 {
-		log.Fatalln("[FATAL]Usage:", os.Args[0], "<port>")
+		log.Fatalln("[FATAL] Usage:", os.Args[0], "<port>")
 	}
 }
 
@@ -35,31 +35,31 @@ func main() {
 func handleClient(conn net.Conn) {
 	log.Println("[INFO]", conn.RemoteAddr(), "Connected.")
 	defer conn.Close()
-	var dt []byte = make([]byte, 10240) // Receive byte
-	readbytes, err := conn.Read(dt)
+	var receiveBytesContainer []byte = make([]byte, 10240) // Receive byte
+	readbytes, err := conn.Read(receiveBytesContainer)
 	if err != nil {
 		checkError(err)
 		conn.Close()
 		return
 	}
-	fn := string(bytes.Split(bytes.Split(dt, []byte("//etransv2-head//"))[0], []byte(";;"))[0])
-	fs := string(bytes.Split(bytes.Split(dt, []byte("//etransv2-head//"))[0], []byte(";;"))[1])
+	fn := string(bytes.Split(bytes.Split(receiveBytesContainer, []byte("//etransv2-head//"))[0], []byte(";;"))[0])
+	fs := string(bytes.Split(bytes.Split(receiveBytesContainer, []byte("//etransv2-head//"))[0], []byte(";;"))[1])
 	log.Println("[INFO] Receiving: " + fn + "  Size: " + fs)
-	ind := bytes.Index(dt, []byte("//etransv2-head//"))
-	realbytes := dt[ind+17:]
+	ind := bytes.Index(receiveBytesContainer, []byte("//etransv2-head//"))
+	realbytes := receiveBytesContainer[ind+17:]
 	f, err := os.Create(fn)
 	checkError(err)
 	defer f.Close()
 	f.Write(realbytes[:readbytes-(ind+17)])
 	for {
-		readbytes, err := conn.Read(dt) // Read to dt
+		readbytes, err := conn.Read(receiveBytesContainer) // Read to receiveBytesContainer
 		if err != nil && err == io.EOF {
-			log.Println("[INFO]", fn+" Saved")
+			log.Println("[INFO]", fn + " Saved")
 			break
 		} else if err != nil && err != io.EOF {
 			checkError(err)
 			break
 		}
-		f.Write(dt[:readbytes]) //write to file
+		f.Write(receiveBytesContainer[:readbytes]) // write to file
 	}
 }
