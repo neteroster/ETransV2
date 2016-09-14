@@ -24,20 +24,20 @@ func sendFile(c net.Conn, filepth string) {
 	f, err := os.Open(filepth)
 	checkError(err)
 	defer f.Close()
-	fstat, err := f.Stat() // get stat
+	fileStat, err := f.Stat() // get stat
 	checkError(err)
-	filename := fstat.Name() //get name
-	filesize := fstat.Size() //get size
+	filename := fileStat.Name() //get name
+	filesize := fileStat.Size() //get size
 	writeString := filename + ";;" + strconv.FormatInt(filesize, 10) + "//etransv2-head//"
 	c.Write([]byte(writeString))
-	buf := make([]byte, 10240)
+	sendBuf := make([]byte, 10240)
 	bfRd := bufio.NewReader(f)
 	for {
-		n, err := bfRd.Read(buf)
+		n, err := bfRd.Read(sendBuf)
 		if err != nil {
 			break // break when finish reading
 		}
-		c.Write(buf[:n])
+		c.Write(sendBuf[:n])
 	}
 }
 
