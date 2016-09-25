@@ -23,7 +23,7 @@ func checkArgs() {
 
 func main() {
 	checkArgs()
-	inc, err := net.Listen("tcp", ":"+os.Args[1]) // Get the connection from client
+	inc, err := net.Listen("tcp", ":" + os.Args[1]) // Get the connection from client
 	checkError(err)
 	for {
 		conn, err := inc.Accept() // Accept client
@@ -50,7 +50,7 @@ func handleClient(conn net.Conn) {
 	f, err := os.Create(fn)
 	checkError(err)
 	defer f.Close()
-	f.Write(realbytes[:readbytes-(ind + 17)])
+	f.Write(realbytes[:readbytes - (ind + 17)])
 	for {
 		readbytes, err := conn.Read(receiveBytesContainer) // Read to receiveBytesContainer
 		if err != nil && err == io.EOF {
