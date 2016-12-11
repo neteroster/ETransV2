@@ -54,7 +54,7 @@ func handleClient(conn net.Conn) {
 	for {
 		readbytes, err := conn.Read(receiveBytesContainer) // Read to receiveBytesContainer
 		if err != nil && err == io.EOF {
-			log.Println("[INFO]", fn + " Saved")
+			log.Println("[INFO]", fn+" Saved")
 			break
 		} else if err != nil && err != io.EOF {
 			checkError(err)
