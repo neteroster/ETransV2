@@ -60,6 +60,6 @@ func handleClient(conn net.Conn) {
 			checkError(err)
 			break
 		}
-		f.Write(receiveBytesContainer[:readbytes]) // write to file
+		f.Write(receiveBytesContainer[:readbytes]) // Write to file
 	}
 }
